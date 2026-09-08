@@ -31,4 +31,7 @@ install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})
 # Add linting before compilation
 include(CppLint)
 ADD_STYLE_CHECK_TARGET(lint ${PROJECT_NAME} ${PROJECT_HEADERS_DIR} ${PROJECT_SOURCES_DIR})
-add_dependencies(${PROJECT_NAME} lint)
+# lint target exists only when Python 2 is available (vendored cpplint.py is py2-only)
+if (TARGET lint)
+    add_dependencies(${PROJECT_NAME} lint)
+endif ()
